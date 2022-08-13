@@ -15,9 +15,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_words_Cpp
+Rcpp::CharacterVector get_words_Cpp(std::string str);
+RcppExport SEXP _dutchsent_get_words_Cpp(SEXP strSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type str(strSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_words_Cpp(str));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_get_dict", (DL_FUNC) &_dutchsent_get_dict, 0},
+    {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
     {NULL, NULL, 0}
 };
 

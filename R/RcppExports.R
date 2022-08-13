@@ -6,3 +6,12 @@ get_dict <- function() {
     .Call('_dutchsent_get_dict', PACKAGE = 'dutchsent')
 }
 
+#' @title C++ wrapper around main fun in get_words.R
+#' @description Function extracts words from text.
+#' @param str Character. For example, a sentence like "Mijn naam is Gerard. Ik ben een goochelaar".
+#' @return Character Vector.
+#'
+get_words_Cpp <- function(str) {
+    .Call('_dutchsent_get_words_Cpp', PACKAGE = 'dutchsent', str)
+}
+
