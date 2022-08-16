@@ -18,6 +18,23 @@ most_similar_LCS <- function(strings, targets) {
     .Call('_dutchsent_most_similar_LCS', PACKAGE = 'dutchsent', strings, targets)
 }
 
+damerau_levenshtein <- function(A, B) {
+    .Call('_dutchsent_damerau_levenshtein', PACKAGE = 'dutchsent', A, B)
+}
+
+damerau_levenshtein_ratio <- function(s1, s2) {
+    .Call('_dutchsent_damerau_levenshtein_ratio', PACKAGE = 'dutchsent', s1, s2)
+}
+
+#' Calculate for each string the normalized Damerau-Levenshtein Distance given a set of target strings.
+#'
+#' @param strings String Vector.
+#' @param targets String Vector.
+#' @export
+most_similar_DL <- function(strings, targets) {
+    .Call('_dutchsent_most_similar_DL', PACKAGE = 'dutchsent', strings, targets)
+}
+
 #' @title C++ wrapper around main fun in get_words.R
 #' @description Function extracts words from text.
 #' @param str Character. For example, a sentence like "Mijn naam is Gerard. Ik ben een goochelaar".
@@ -25,6 +42,31 @@ most_similar_LCS <- function(strings, targets) {
 #'
 get_words_Cpp <- function(str) {
     .Call('_dutchsent_get_words_Cpp', PACKAGE = 'dutchsent', str)
+}
+
+#' @title Find the max indices given a list of edit distances.
+#' @description Function is designed to find the max indices in a list of numeric vectors.
+#' The numeric vectors consist of edit distances, numeric values.
+#'
+#' @param list_of_edit_distances A list of numeric vectors.
+#' @return Integer Vector
+#' @export
+#'
+idx_lookup <- function(list_of_edit_distances) {
+    .Call('_dutchsent_idx_lookup', PACKAGE = 'dutchsent', list_of_edit_distances)
+}
+
+jaro_distance <- function(s1, s2) {
+    .Call('_dutchsent_jaro_distance', PACKAGE = 'dutchsent', s1, s2)
+}
+
+#' Calculate for each string the Jaro Distance given a set of target strings.
+#'
+#' @param strings String Vector.
+#' @param targets String Vector.
+#' @export
+most_similar_jaro <- function(strings, targets) {
+    .Call('_dutchsent_most_similar_jaro', PACKAGE = 'dutchsent', strings, targets)
 }
 
 #' @export
@@ -39,6 +81,23 @@ jaro_winkler_distance <- function(str1, str2) {
 #' @export
 most_similar_jw <- function(strings, targets) {
     .Call('_dutchsent_most_similar_jw', PACKAGE = 'dutchsent', strings, targets)
+}
+
+levenstein_distance <- function(s1, s2) {
+    .Call('_dutchsent_levenstein_distance', PACKAGE = 'dutchsent', s1, s2)
+}
+
+levenstein_ratio <- function(s1, s2) {
+    .Call('_dutchsent_levenstein_ratio', PACKAGE = 'dutchsent', s1, s2)
+}
+
+#' Calculate for each string the normalized Levenstein Distance given a set of target strings.
+#'
+#' @param strings String Vector.
+#' @param targets String Vector.
+#' @export
+most_similar_levenstein <- function(strings, targets) {
+    .Call('_dutchsent_most_similar_levenstein', PACKAGE = 'dutchsent', strings, targets)
 }
 
 #' @export
