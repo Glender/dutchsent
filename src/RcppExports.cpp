@@ -41,16 +41,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// get_dict
-DataFrame get_dict();
-RcppExport SEXP _dutchsent_get_dict() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(get_dict());
-    return rcpp_result_gen;
-END_RCPP
-}
 // get_words_Cpp
 Rcpp::CharacterVector get_words_Cpp(std::string str);
 RcppExport SEXP _dutchsent_get_words_Cpp(SEXP strSEXP) {
@@ -86,15 +76,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// load_dict
+Rcpp::DataFrame load_dict();
+RcppExport SEXP _dutchsent_load_dict() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(load_dict());
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_LCSubStr", (DL_FUNC) &_dutchsent_LCSubStr, 2},
     {"_dutchsent_LCS_ratio", (DL_FUNC) &_dutchsent_LCS_ratio, 2},
     {"_dutchsent_most_similar_LCS", (DL_FUNC) &_dutchsent_most_similar_LCS, 2},
-    {"_dutchsent_get_dict", (DL_FUNC) &_dutchsent_get_dict, 0},
     {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
     {"_dutchsent_jaro_winkler_distance", (DL_FUNC) &_dutchsent_jaro_winkler_distance, 2},
     {"_dutchsent_most_similar_jw", (DL_FUNC) &_dutchsent_most_similar_jw, 2},
+    {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
     {NULL, NULL, 0}
 };
 

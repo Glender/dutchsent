@@ -18,11 +18,6 @@ most_similar_LCS <- function(strings, targets) {
     .Call('_dutchsent_most_similar_LCS', PACKAGE = 'dutchsent', strings, targets)
 }
 
-#' @export
-get_dict <- function() {
-    .Call('_dutchsent_get_dict', PACKAGE = 'dutchsent')
-}
-
 #' @title C++ wrapper around main fun in get_words.R
 #' @description Function extracts words from text.
 #' @param str Character. For example, a sentence like "Mijn naam is Gerard. Ik ben een goochelaar".
@@ -44,5 +39,10 @@ jaro_winkler_distance <- function(str1, str2) {
 #' @export
 most_similar_jw <- function(strings, targets) {
     .Call('_dutchsent_most_similar_jw', PACKAGE = 'dutchsent', strings, targets)
+}
+
+#' @export
+load_dict <- function() {
+    .Call('_dutchsent_load_dict', PACKAGE = 'dutchsent')
 }
 

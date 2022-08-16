@@ -9,7 +9,7 @@ using namespace Rcpp;
 
 //' @export
 // [[Rcpp::export]]
-DataFrame get_dict(){
+Rcpp::DataFrame load_dict(){
 
   // Retrieving the package environment
   Environment env("package:dutchsent");
