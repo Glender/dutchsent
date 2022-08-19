@@ -193,15 +193,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// sugar_in
-std::vector<int> sugar_in(CharacterVector x, CharacterVector y);
-RcppExport SEXP _dutchsent_sugar_in(SEXP xSEXP, SEXP ySEXP) {
+// search_dict
+IntegerVector search_dict(CharacterVector v);
+RcppExport SEXP _dutchsent_search_dict(SEXP vSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(sugar_in(x, y));
+    Rcpp::traits::input_parameter< CharacterVector >::type v(vSEXP);
+    rcpp_result_gen = Rcpp::wrap(search_dict(v));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -223,7 +222,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_levenstein_ratio", (DL_FUNC) &_dutchsent_levenstein_ratio, 2},
     {"_dutchsent_most_similar_levenstein", (DL_FUNC) &_dutchsent_most_similar_levenstein, 2},
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
-    {"_dutchsent_sugar_in", (DL_FUNC) &_dutchsent_sugar_in, 2},
+    {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 1},
     {NULL, NULL, 0}
 };
 

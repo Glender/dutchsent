@@ -105,7 +105,9 @@ load_dict <- function() {
     .Call('_dutchsent_load_dict', PACKAGE = 'dutchsent')
 }
 
-sugar_in <- function(x, y) {
-    .Call('_dutchsent_sugar_in', PACKAGE = 'dutchsent', x, y)
+#' @export
+#'
+search_dict <- function(v) {
+    .Call('_dutchsent_search_dict', PACKAGE = 'dutchsent', v)
 }
 
