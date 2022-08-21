@@ -16,15 +16,8 @@ Rcpp::DataFrame load_dict(){
   // Retrieving the package environment
   Environment env("package:dutchsent");
 
-  // Retrieving objects "score" and "word" from
-  // the package environment
-  IntegerVector score = env["score"];
-  CharacterVector word = env["word"];
+  // Loading internal data.frame sentiment dictionary
+  Rcpp::DataFrame dict = as<Rcpp::DataFrame>(env["dict"]);
 
-  // store the values in a data.frame
-  DataFrame df = DataFrame::create(
-    Named("word") = word, Named("score") = score
-  );
-
-  return df;
+  return dict;
 }

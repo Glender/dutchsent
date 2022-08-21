@@ -105,9 +105,25 @@ load_dict <- function() {
     .Call('_dutchsent_load_dict', PACKAGE = 'dutchsent')
 }
 
+#' @title Remove words from a vector of words.
+#' @param words. A vector of single words.
+#' @param word_list. A vector with words that you want to remove.
 #' @export
-#'
-search_dict <- function(v) {
-    .Call('_dutchsent_search_dict', PACKAGE = 'dutchsent', v)
+#' @examples
+#' some_words <- c("hallo", "there", "die")
+#' remove <- c("zo", die")
+#' remove_words(some_words, remove)
+remove_words <- function(words, word_list) {
+    .Call('_dutchsent_remove_words', PACKAGE = 'dutchsent', words, word_list)
+}
+
+#' @title Load your dutch sentiment dictionary and search a word in it.
+#' @description Find the sentiment score of a word in the sentiment dictionary.
+#' @param w CharacterVector. Words you want to test, each in a separate vector.
+#' @param words CharacterVector. Words from your sentiment dictionary.
+#' @param scores IntegerVector. Scores that belong to each word in your dict.
+#' @export
+search_dict <- function(w, words, scores) {
+    .Call('_dutchsent_search_dict', PACKAGE = 'dutchsent', w, words, scores)
 }
 

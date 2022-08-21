@@ -193,14 +193,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// search_dict
-IntegerVector search_dict(CharacterVector v);
-RcppExport SEXP _dutchsent_search_dict(SEXP vSEXP) {
+// remove_words
+CharacterVector remove_words(CharacterVector words, CharacterVector word_list);
+RcppExport SEXP _dutchsent_remove_words(SEXP wordsSEXP, SEXP word_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type v(vSEXP);
-    rcpp_result_gen = Rcpp::wrap(search_dict(v));
+    Rcpp::traits::input_parameter< CharacterVector >::type words(wordsSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type word_list(word_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(remove_words(words, word_list));
+    return rcpp_result_gen;
+END_RCPP
+}
+// search_dict
+IntegerVector search_dict(CharacterVector w, CharacterVector words, IntegerVector scores);
+RcppExport SEXP _dutchsent_search_dict(SEXP wSEXP, SEXP wordsSEXP, SEXP scoresSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type w(wSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type words(wordsSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type scores(scoresSEXP);
+    rcpp_result_gen = Rcpp::wrap(search_dict(w, words, scores));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -222,7 +236,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_levenstein_ratio", (DL_FUNC) &_dutchsent_levenstein_ratio, 2},
     {"_dutchsent_most_similar_levenstein", (DL_FUNC) &_dutchsent_most_similar_levenstein, 2},
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
-    {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 1},
+    {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
+    {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
     {NULL, NULL, 0}
 };
 

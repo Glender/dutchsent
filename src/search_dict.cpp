@@ -1,22 +1,39 @@
 #include <Rcpp.h>
-#include "load_dict.h"
 
 using namespace Rcpp;
 
+// https://kevinushey.github.io/blog/2015/01/24/understanding-data-frame-subsetting/
+
+//' @title Load your dutch sentiment dictionary and search a word in it.
+//' @description Find the sentiment score of a word in the sentiment dictionary.
+//' @param w CharacterVector. Words you want to test, each in a separate vector.
+//' @param words CharacterVector. Words from your sentiment dictionary.
+//' @param scores IntegerVector. Scores that belong to each word in your dict.
 //' @export
-//'
 // [[Rcpp::export]]
-IntegerVector search_dict(CharacterVector v){
+IntegerVector search_dict(CharacterVector w, CharacterVector words, IntegerVector scores){
 
-  // Move dict creation out of fun
-  DataFrame dict = load_dict();
-
+  /*
+  // Retrieve words and their sentiment scores
+  // from the sentiment dictionary.
+  Dataframe dict = load_dict();
   CharacterVector words = dict["word"];
-  IntegerVector scores = as<IntegerVector>(dict["score"]);
+  IntegerVector scores = dict["score"];
+   */
 
-  //
-  IntegerVector matches = match(v, words);
-  matches = matches[ !is_na(matches) ];
+  // find the indices of w in your dictionary
+  IntegerVector matches = match(w, words);
 
-  return scores[matches];
+  // subsetting in Rcpp can't handle NA's
+  // so remove NA's from matches
+  matches = na_omit(matches);
+
+  // when matches is an empty vector it returns `integer(0)`
+  // so return IntegerVector 0 when this is the case.
+  if( matches.length() == 0 ) {
+    return IntegerVector {0};
+  }
+
+  // Look up the score that belongs to each word in the dictionary.
+  else return scores[matches];
 }
