@@ -105,6 +105,10 @@ load_dict <- function() {
     .Call('_dutchsent_load_dict', PACKAGE = 'dutchsent')
 }
 
+load_negation_words <- function() {
+    .Call('_dutchsent_load_negation_words', PACKAGE = 'dutchsent')
+}
+
 #' @title Remove words from a vector of words.
 #' @param words. A vector of single words.
 #' @param word_list. A vector with words that you want to remove.

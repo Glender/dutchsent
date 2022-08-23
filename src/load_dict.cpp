@@ -11,7 +11,7 @@ using namespace Rcpp;
 
 //' @export
 // [[Rcpp::export]]
-Rcpp::DataFrame load_dict(){
+const Rcpp::DataFrame load_dict(){
 
   // Retrieving the package environment
   Environment env("package:dutchsent");

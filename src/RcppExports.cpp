@@ -184,12 +184,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // load_dict
-Rcpp::DataFrame load_dict();
+const Rcpp::DataFrame load_dict();
 RcppExport SEXP _dutchsent_load_dict() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     rcpp_result_gen = Rcpp::wrap(load_dict());
+    return rcpp_result_gen;
+END_RCPP
+}
+// load_negation_words
+const CharacterVector load_negation_words();
+RcppExport SEXP _dutchsent_load_negation_words() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(load_negation_words());
     return rcpp_result_gen;
 END_RCPP
 }
@@ -236,6 +246,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_levenstein_ratio", (DL_FUNC) &_dutchsent_levenstein_ratio, 2},
     {"_dutchsent_most_similar_levenstein", (DL_FUNC) &_dutchsent_most_similar_levenstein, 2},
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
+    {"_dutchsent_load_negation_words", (DL_FUNC) &_dutchsent_load_negation_words, 0},
     {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
     {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
     {NULL, NULL, 0}

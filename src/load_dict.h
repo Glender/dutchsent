@@ -3,6 +3,6 @@
 #define LOAD_DICT_H
 
 // https://knausb.github.io/2017/08/header-files-in-rcpp/
-Rcpp::DataFrame load_dict();
+const Rcpp::DataFrame load_dict();
 
 #endif
