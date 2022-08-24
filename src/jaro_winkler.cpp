@@ -62,7 +62,6 @@ double jaro_winkler_distance(std::string str1, std::string str2) {
 
 
 //' @title Calculate for each string the Jaro Winkler Distance given a set of target strings.
-//'
 //' @param strings String Vector.
 //' @param targets String Vector.
 //' @export

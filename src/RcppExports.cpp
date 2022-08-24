@@ -203,6 +203,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// load_stopwords
+const CharacterVector load_stopwords();
+RcppExport SEXP _dutchsent_load_stopwords() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(load_stopwords());
+    return rcpp_result_gen;
+END_RCPP
+}
 // remove_words
 CharacterVector remove_words(CharacterVector words, CharacterVector word_list);
 RcppExport SEXP _dutchsent_remove_words(SEXP wordsSEXP, SEXP word_listSEXP) {
@@ -228,6 +238,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// str_contains
+bool str_contains(CharacterVector words, CharacterVector word_list);
+RcppExport SEXP _dutchsent_str_contains(SEXP wordsSEXP, SEXP word_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type words(wordsSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type word_list(word_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(str_contains(words, word_list));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_LCSubStr", (DL_FUNC) &_dutchsent_LCSubStr, 2},
@@ -247,8 +269,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_most_similar_levenstein", (DL_FUNC) &_dutchsent_most_similar_levenstein, 2},
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
     {"_dutchsent_load_negation_words", (DL_FUNC) &_dutchsent_load_negation_words, 0},
+    {"_dutchsent_load_stopwords", (DL_FUNC) &_dutchsent_load_stopwords, 0},
     {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
     {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
+    {"_dutchsent_str_contains", (DL_FUNC) &_dutchsent_str_contains, 2},
     {NULL, NULL, 0}
 };
 

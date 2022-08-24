@@ -75,7 +75,6 @@ jaro_winkler_distance <- function(str1, str2) {
 }
 
 #' @title Calculate for each string the Jaro Winkler Distance given a set of target strings.
-#'
 #' @param strings String Vector.
 #' @param targets String Vector.
 #' @export
@@ -109,13 +108,17 @@ load_negation_words <- function() {
     .Call('_dutchsent_load_negation_words', PACKAGE = 'dutchsent')
 }
 
+load_stopwords <- function() {
+    .Call('_dutchsent_load_stopwords', PACKAGE = 'dutchsent')
+}
+
 #' @title Remove words from a vector of words.
 #' @param words. A vector of single words.
 #' @param word_list. A vector with words that you want to remove.
 #' @export
 #' @examples
 #' some_words <- c("hallo", "there", "die")
-#' remove <- c("zo", die")
+#' remove <- c("zo", "die")
 #' remove_words(some_words, remove)
 remove_words <- function(words, word_list) {
     .Call('_dutchsent_remove_words', PACKAGE = 'dutchsent', words, word_list)
@@ -129,5 +132,13 @@ remove_words <- function(words, word_list) {
 #' @export
 search_dict <- function(w, words, scores) {
     .Call('_dutchsent_search_dict', PACKAGE = 'dutchsent', w, words, scores)
+}
+
+#' @title Check whether words are in a word list.
+#' @param word_list Vector of Characters, each a word.
+#' @param words Vector of Characters, each a word.
+#' @export
+str_contains <- function(words, word_list) {
+    .Call('_dutchsent_str_contains', PACKAGE = 'dutchsent', words, word_list)
 }
 

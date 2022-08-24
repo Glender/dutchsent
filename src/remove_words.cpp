@@ -7,7 +7,7 @@ using namespace Rcpp;
 //' @export
 //' @examples
 //' some_words <- c("hallo", "there", "die")
-//' remove <- c("zo", die")
+//' remove <- c("zo", "die")
 //' remove_words(some_words, remove)
 // [[Rcpp::export]]
 CharacterVector remove_words(CharacterVector words, CharacterVector word_list) {

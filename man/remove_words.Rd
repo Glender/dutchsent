@@ -14,3 +14,8 @@ remove_words(words, word_list)
 \description{
 Remove words from a vector of words.
 }
+\examples{
+some_words <- c("hallo", "there", "die")
+remove <- c("zo", "die")
+remove_words(some_words, remove)
+}
