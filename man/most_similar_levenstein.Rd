@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{most_similar_levenstein}
 \alias{most_similar_levenstein}
-\title{Calculate for each string the normalized Levenstein Distance given a set of target strings.}
+\title{Calculate for each string the normalized Levenshtein distance given a set of target strings.}
 \usage{
 most_similar_levenstein(strings, targets)
 }
@@ -12,5 +12,10 @@ most_similar_levenstein(strings, targets)
 \item{targets}{String Vector.}
 }
 \description{
-Calculate for each string the normalized Levenstein Distance given a set of target strings.
+Calculate for each string the normalized Levenshtein distance given a set of target strings.
+}
+\examples{
+words <- c("stomme", "goede")
+targets <- c("goed", "stom", "ziek")
+most_similar_levenstein(words, targets)
 }

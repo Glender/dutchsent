@@ -5,7 +5,7 @@ using namespace Rcpp;
 
 
 //' @title Find the max indices given a list of edit distances.
-//' @description Function is designed to find the max indices in a list of numeric vectors.
+//' @description Function is designed to find the min indices in a list of numeric vectors.
 //' The numeric vectors consist of edit distances, numeric values.
 //'
 //' @param list_of_edit_distances A list of numeric vectors.
@@ -13,10 +13,11 @@ using namespace Rcpp;
 //' @export
 //'
 // [[Rcpp::export]]
-Rcpp::IntegerVector idx_lookup(Rcpp::List list_of_edit_distances) {
+Rcpp::IntegerVector idx_lookup_min(Rcpp::List list_of_edit_distances) {
 
   int len_list = list_of_edit_distances.length();
-  IntegerVector max_idx(len_list);
+  Rcpp::IntegerVector idx(len_list);
+
   for(int i=0; i < len_list; i++){
 
     // convert to vector
@@ -24,7 +25,7 @@ Rcpp::IntegerVector idx_lookup(Rcpp::List list_of_edit_distances) {
 
     // R starts counting from 1, not 0
     // thus + 1
-    max_idx[i] = which_max(v) + 1;
+    idx[i] = which_min(v) + 1;
   }
-  return max_idx;
+  return idx;
 }

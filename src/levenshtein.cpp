@@ -25,6 +25,7 @@ unsigned int levenstein_distance(const std::string& s1, const std::string& s2)
   return d[len1][len2];
 }
 
+/*
 
 // [[Rcpp::export]]
 double levenstein_ratio(std::string s1, std::string s2){
@@ -43,15 +44,22 @@ double levenstein_ratio(std::string s1, std::string s2){
   return ratio;
 }
 
+ */
 
-//' Calculate for each string the normalized Levenstein Distance given a set of target strings.
-//'
+//' @title Calculate for each string the normalized Levenshtein distance given a set of target strings.
 //' @param strings String Vector.
 //' @param targets String Vector.
 //' @export
+//' @examples
+//' words <- c("stomme", "goede")
+//' targets <- c("goed", "stom", "ziek")
+//' most_similar_levenstein(words, targets)
 // [[Rcpp::export]]
-List most_similar_levenstein(std::vector< std::string > strings, std::vector< std::string > targets) {
-
+List most_similar_levenstein(
+    std::vector< std::string > strings,
+    std::vector< std::string > targets
+)
+{
   // create list to store results
   unsigned int num_strings = strings.size();
   List out(num_strings);
@@ -63,9 +71,10 @@ List most_similar_levenstein(std::vector< std::string > strings, std::vector< st
     for( int j=0; j < num_targets; j++ ) {
 
       // calculate LD ratio for each target and store them in v
-      v[j] = levenstein_ratio(strings[i], targets[j]);
+      v[j] = levenstein_distance(strings[i], targets[j]);
     }
     out[i] = v;
   }
   return out;
 }
+

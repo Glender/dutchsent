@@ -88,14 +88,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// idx_lookup
-Rcpp::IntegerVector idx_lookup(Rcpp::List list_of_edit_distances);
-RcppExport SEXP _dutchsent_idx_lookup(SEXP list_of_edit_distancesSEXP) {
+// idx_lookup_min
+Rcpp::IntegerVector idx_lookup_min(Rcpp::List list_of_edit_distances);
+RcppExport SEXP _dutchsent_idx_lookup_min(SEXP list_of_edit_distancesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type list_of_edit_distances(list_of_edit_distancesSEXP);
-    rcpp_result_gen = Rcpp::wrap(idx_lookup(list_of_edit_distances));
+    rcpp_result_gen = Rcpp::wrap(idx_lookup_min(list_of_edit_distances));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -156,18 +156,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::string& >::type s1(s1SEXP);
     Rcpp::traits::input_parameter< const std::string& >::type s2(s2SEXP);
     rcpp_result_gen = Rcpp::wrap(levenstein_distance(s1, s2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// levenstein_ratio
-double levenstein_ratio(std::string s1, std::string s2);
-RcppExport SEXP _dutchsent_levenstein_ratio(SEXP s1SEXP, SEXP s2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type s1(s1SEXP);
-    Rcpp::traits::input_parameter< std::string >::type s2(s2SEXP);
-    rcpp_result_gen = Rcpp::wrap(levenstein_ratio(s1, s2));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -259,13 +247,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_damerau_levenshtein_ratio", (DL_FUNC) &_dutchsent_damerau_levenshtein_ratio, 2},
     {"_dutchsent_most_similar_DL", (DL_FUNC) &_dutchsent_most_similar_DL, 2},
     {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
-    {"_dutchsent_idx_lookup", (DL_FUNC) &_dutchsent_idx_lookup, 1},
+    {"_dutchsent_idx_lookup_min", (DL_FUNC) &_dutchsent_idx_lookup_min, 1},
     {"_dutchsent_jaro_distance", (DL_FUNC) &_dutchsent_jaro_distance, 2},
     {"_dutchsent_most_similar_jaro", (DL_FUNC) &_dutchsent_most_similar_jaro, 2},
     {"_dutchsent_jaro_winkler_distance", (DL_FUNC) &_dutchsent_jaro_winkler_distance, 2},
     {"_dutchsent_most_similar_jw", (DL_FUNC) &_dutchsent_most_similar_jw, 2},
     {"_dutchsent_levenstein_distance", (DL_FUNC) &_dutchsent_levenstein_distance, 2},
-    {"_dutchsent_levenstein_ratio", (DL_FUNC) &_dutchsent_levenstein_ratio, 2},
     {"_dutchsent_most_similar_levenstein", (DL_FUNC) &_dutchsent_most_similar_levenstein, 2},
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
     {"_dutchsent_load_negation_words", (DL_FUNC) &_dutchsent_load_negation_words, 0},

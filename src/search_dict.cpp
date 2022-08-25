@@ -9,17 +9,13 @@ using namespace Rcpp;
 //' @param w CharacterVector. Words you want to test, each in a separate vector.
 //' @param words CharacterVector. Words from your sentiment dictionary.
 //' @param scores IntegerVector. Scores that belong to each word in your dict.
+//' @examples
+//' dict <- load_dict()
+//' words <- c("goed", "leuk")
+//' search_dict(words, dict$word, dict$score)
 //' @export
 // [[Rcpp::export]]
 IntegerVector search_dict(CharacterVector w, CharacterVector words, IntegerVector scores){
-
-  /*
-  // Retrieve words and their sentiment scores
-  // from the sentiment dictionary.
-  Dataframe dict = load_dict();
-  CharacterVector words = dict["word"];
-  IntegerVector scores = dict["score"];
-   */
 
   // find the indices of w in your dictionary
   IntegerVector matches = match(w, words);

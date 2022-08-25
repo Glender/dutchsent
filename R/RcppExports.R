@@ -45,15 +45,15 @@ get_words_Cpp <- function(str) {
 }
 
 #' @title Find the max indices given a list of edit distances.
-#' @description Function is designed to find the max indices in a list of numeric vectors.
+#' @description Function is designed to find the min indices in a list of numeric vectors.
 #' The numeric vectors consist of edit distances, numeric values.
 #'
 #' @param list_of_edit_distances A list of numeric vectors.
 #' @return Integer Vector
 #' @export
 #'
-idx_lookup <- function(list_of_edit_distances) {
-    .Call('_dutchsent_idx_lookup', PACKAGE = 'dutchsent', list_of_edit_distances)
+idx_lookup_min <- function(list_of_edit_distances) {
+    .Call('_dutchsent_idx_lookup_min', PACKAGE = 'dutchsent', list_of_edit_distances)
 }
 
 jaro_distance <- function(s1, s2) {
@@ -86,15 +86,14 @@ levenstein_distance <- function(s1, s2) {
     .Call('_dutchsent_levenstein_distance', PACKAGE = 'dutchsent', s1, s2)
 }
 
-levenstein_ratio <- function(s1, s2) {
-    .Call('_dutchsent_levenstein_ratio', PACKAGE = 'dutchsent', s1, s2)
-}
-
-#' Calculate for each string the normalized Levenstein Distance given a set of target strings.
-#'
+#' @title Calculate for each string the normalized Levenshtein distance given a set of target strings.
 #' @param strings String Vector.
 #' @param targets String Vector.
 #' @export
+#' @examples
+#' words <- c("stomme", "goede")
+#' targets <- c("goed", "stom", "ziek")
+#' most_similar_levenstein(words, targets)
 most_similar_levenstein <- function(strings, targets) {
     .Call('_dutchsent_most_similar_levenstein', PACKAGE = 'dutchsent', strings, targets)
 }
@@ -129,12 +128,18 @@ remove_words <- function(words, word_list) {
 #' @param w CharacterVector. Words you want to test, each in a separate vector.
 #' @param words CharacterVector. Words from your sentiment dictionary.
 #' @param scores IntegerVector. Scores that belong to each word in your dict.
+#' @examples
+#' dict <- load_dict()
+#' words <- c("goed", "leuk")
+#' search_dict(words, dict$word, dict$score)
 #' @export
 search_dict <- function(w, words, scores) {
     .Call('_dutchsent_search_dict', PACKAGE = 'dutchsent', w, words, scores)
 }
 
 #' @title Check whether words are in a word list.
+#' @description Returns `TRUE` if a word or vector of words
+#' are in a word list. Otherwise it returns FALSE.
 #' @param word_list Vector of Characters, each a word.
 #' @param words Vector of Characters, each a word.
 #' @export

@@ -16,3 +16,8 @@ search_dict(w, words, scores)
 \description{
 Find the sentiment score of a word in the sentiment dictionary.
 }
+\examples{
+dict <- load_dict()
+words <- c("goed", "leuk")
+search_dict(words, dict$word, dict$score)
+}

@@ -12,5 +12,6 @@ str_contains(words, word_list)
 \item{word_list}{Vector of Characters, each a word.}
 }
 \description{
-Check whether words are in a word list.
+Returns \code{TRUE} if a word or vector of words
+are in a word list. Otherwise it returns FALSE.
 }
