@@ -4,15 +4,23 @@
 \alias{idx_lookup_min}
 \title{Find the max indices given a list of edit distances.}
 \usage{
-idx_lookup_min(list_of_edit_distances)
+idx_lookup_min(list_of_edit_distances, cutoff)
 }
 \arguments{
 \item{list_of_edit_distances}{A list of numeric vectors.}
+
+\item{least_dist}{Integer. Levenshtein Distance cut-off.}
 }
 \value{
-Integer Vector
+IntegerVector
 }
 \description{
 Function is designed to find the min indices in a list of numeric vectors.
 The numeric vectors consist of edit distances, numeric values.
+}
+\examples{
+edit_dist <- list(c(5, 4, 7), c(5, 1, 4))
+idx_lookup_min(edit_dist, 2)
+# Returns:
+# c(NA, 2)
 }

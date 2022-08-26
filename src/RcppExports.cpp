@@ -89,13 +89,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // idx_lookup_min
-Rcpp::IntegerVector idx_lookup_min(Rcpp::List list_of_edit_distances);
-RcppExport SEXP _dutchsent_idx_lookup_min(SEXP list_of_edit_distancesSEXP) {
+Rcpp::IntegerVector idx_lookup_min(Rcpp::List list_of_edit_distances, unsigned int cutoff);
+RcppExport SEXP _dutchsent_idx_lookup_min(SEXP list_of_edit_distancesSEXP, SEXP cutoffSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type list_of_edit_distances(list_of_edit_distancesSEXP);
-    rcpp_result_gen = Rcpp::wrap(idx_lookup_min(list_of_edit_distances));
+    Rcpp::traits::input_parameter< unsigned int >::type cutoff(cutoffSEXP);
+    rcpp_result_gen = Rcpp::wrap(idx_lookup_min(list_of_edit_distances, cutoff));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -247,7 +248,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_damerau_levenshtein_ratio", (DL_FUNC) &_dutchsent_damerau_levenshtein_ratio, 2},
     {"_dutchsent_most_similar_DL", (DL_FUNC) &_dutchsent_most_similar_DL, 2},
     {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
-    {"_dutchsent_idx_lookup_min", (DL_FUNC) &_dutchsent_idx_lookup_min, 1},
+    {"_dutchsent_idx_lookup_min", (DL_FUNC) &_dutchsent_idx_lookup_min, 2},
     {"_dutchsent_jaro_distance", (DL_FUNC) &_dutchsent_jaro_distance, 2},
     {"_dutchsent_most_similar_jaro", (DL_FUNC) &_dutchsent_most_similar_jaro, 2},
     {"_dutchsent_jaro_winkler_distance", (DL_FUNC) &_dutchsent_jaro_winkler_distance, 2},

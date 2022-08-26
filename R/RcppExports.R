@@ -47,13 +47,17 @@ get_words_Cpp <- function(str) {
 #' @title Find the max indices given a list of edit distances.
 #' @description Function is designed to find the min indices in a list of numeric vectors.
 #' The numeric vectors consist of edit distances, numeric values.
-#'
 #' @param list_of_edit_distances A list of numeric vectors.
-#' @return Integer Vector
+#' @param least_dist Integer. Levenshtein Distance cut-off.
+#' @return IntegerVector
 #' @export
-#'
-idx_lookup_min <- function(list_of_edit_distances) {
-    .Call('_dutchsent_idx_lookup_min', PACKAGE = 'dutchsent', list_of_edit_distances)
+#' @examples
+#' edit_dist <- list(c(5, 4, 7), c(5, 1, 4))
+#' idx_lookup_min(edit_dist, 2)
+#' # Returns:
+#' # c(NA, 2)
+idx_lookup_min <- function(list_of_edit_distances, cutoff) {
+    .Call('_dutchsent_idx_lookup_min', PACKAGE = 'dutchsent', list_of_edit_distances, cutoff)
 }
 
 jaro_distance <- function(s1, s2) {
