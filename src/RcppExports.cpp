@@ -161,13 +161,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // most_similar_levenstein
-List most_similar_levenstein(std::vector< std::string > strings, std::vector< std::string > targets);
+Rcpp::List most_similar_levenstein(Rcpp::CharacterVector strings, Rcpp::CharacterVector targets);
 RcppExport SEXP _dutchsent_most_similar_levenstein(SEXP stringsSEXP, SEXP targetsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector< std::string > >::type strings(stringsSEXP);
-    Rcpp::traits::input_parameter< std::vector< std::string > >::type targets(targetsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type strings(stringsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type targets(targetsSEXP);
     rcpp_result_gen = Rcpp::wrap(most_similar_levenstein(strings, targets));
     return rcpp_result_gen;
 END_RCPP
@@ -199,6 +199,20 @@ BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     rcpp_result_gen = Rcpp::wrap(load_stopwords());
+    return rcpp_result_gen;
+END_RCPP
+}
+// proximity_search_dict
+Rcpp::IntegerVector proximity_search_dict(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff);
+RcppExport SEXP _dutchsent_proximity_search_dict(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoffSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type cutoff(cutoffSEXP);
+    rcpp_result_gen = Rcpp::wrap(proximity_search_dict(words, dict_words, dict_scores, cutoff));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -258,6 +272,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
     {"_dutchsent_load_negation_words", (DL_FUNC) &_dutchsent_load_negation_words, 0},
     {"_dutchsent_load_stopwords", (DL_FUNC) &_dutchsent_load_stopwords, 0},
+    {"_dutchsent_proximity_search_dict", (DL_FUNC) &_dutchsent_proximity_search_dict, 4},
     {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
     {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
     {"_dutchsent_str_contains", (DL_FUNC) &_dutchsent_str_contains, 2},

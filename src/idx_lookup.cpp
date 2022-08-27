@@ -31,13 +31,15 @@ Rcpp::IntegerVector idx_lookup_min(
     NumericVector v = list_of_edit_distances[i];
     unsigned int least_dist = min(v);
 
-    // filter your proximity scores
+    // filter your proximity scores on cutoff
     if(least_dist > cutoff) {
-      idx[i] = NA_INTEGER;
+
+      // 5207 maps to '0' in the dictionary, because NA's
+      // aren't subsettable, so a neutral score is given.
+      idx[i] = 5207;
 
     } else {
-    // R starts counting from 1, not 0; thus + 1.
-      idx[i] = which_min(v) + 1;
+      idx[i] = which_min(v);
     }
   }
   return idx;

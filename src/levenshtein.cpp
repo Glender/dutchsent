@@ -55,9 +55,9 @@ double levenstein_ratio(std::string s1, std::string s2){
 //' targets <- c("goed", "stom", "ziek")
 //' most_similar_levenstein(words, targets)
 // [[Rcpp::export]]
-List most_similar_levenstein(
-    std::vector< std::string > strings,
-    std::vector< std::string > targets
+Rcpp::List most_similar_levenstein(
+    Rcpp::CharacterVector strings,
+    Rcpp::CharacterVector targets
 )
 {
   // create list to store results
@@ -71,7 +71,10 @@ List most_similar_levenstein(
     for( int j=0; j < num_targets; j++ ) {
 
       // calculate LD ratio for each target and store them in v
-      v[j] = levenstein_distance(strings[i], targets[j]);
+      v[j] = levenstein_distance(
+        Rcpp::as<std::string>(strings[i]),
+        Rcpp::as<std::string>(targets[j])
+      );
     }
     out[i] = v;
   }

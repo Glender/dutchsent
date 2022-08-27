@@ -115,6 +115,21 @@ load_stopwords <- function() {
     .Call('_dutchsent_load_stopwords', PACKAGE = 'dutchsent')
 }
 
+#' @title Find the sentiment score of a word in the sentiment dictionary.
+#' @param words CharacterVector. Vector of words.
+#' @param dict_words CharacterVector. A word dictionary.
+#' @param dict_scores IntegerVector. Scores for each word in the dictionary.
+#' @param cutoff Integer. The number of single-character edits required
+#' to change a word in the target word.
+#' @return IntegerVector. Sentiment scores for each word, 0 if no match was found.
+#' @examples
+#' words <- c("stomme", "goede")
+#' proximity_search_dict(words, dict$word, dict$score, cutoff = 2)
+#' @export
+proximity_search_dict <- function(words, dict_words, dict_scores, cutoff) {
+    .Call('_dutchsent_proximity_search_dict', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff)
+}
+
 #' @title Remove words from a vector of words.
 #' @param words. A vector of single words.
 #' @param word_list. A vector with words that you want to remove.
