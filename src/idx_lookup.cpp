@@ -1,4 +1,6 @@
 #include <Rcpp.h>
+#include "LCS_ratio.h"
+
 using namespace Rcpp;
 
 // https://stackoverflow.com/questions/59055902/find-index-of-all-max-min-values-in-vector-in-rcpp
@@ -8,17 +10,21 @@ using namespace Rcpp;
 //' @description Function is designed to find the min indices in a list of numeric vectors.
 //' The numeric vectors consist of edit distances, numeric values.
 //' @param list_of_edit_distances A list of numeric vectors.
-//' @param least_dist Integer. Levenshtein Distance cut-off.
+//' @param words CharacterVector. List of words.
+//' @param dict_words CharacterVector. Word dictionary.
+//' @param cutoff_levenstein Integer. Levenshtein Distance cutoff.
+//' @param cutoff_LCS Double. Least Common Substring ratio cutoff.
 //' @return IntegerVector
 //' @export
-//' @examples
-//' edit_dist <- list(c(5, 4, 7), c(5, 1, 4))
-//' idx_lookup_min(edit_dist, 2)
-//' # Returns:
-//' # c(NA, 2)
 // [[Rcpp::export]]
-Rcpp::IntegerVector idx_lookup_min(
-    Rcpp::List list_of_edit_distances, unsigned int cutoff
+Rcpp::IntegerVector dict_idx_lookup(
+
+    Rcpp::List list_of_edit_distances,
+    Rcpp::CharacterVector words,
+    Rcpp::CharacterVector dict_words,
+    unsigned int cutoff_levenstein,
+    double cutoff_LCS
+
 ){
 
   int len_list = list_of_edit_distances.length();
@@ -29,17 +35,24 @@ Rcpp::IntegerVector idx_lookup_min(
   for(int i=0; i < len_list; i++){
 
     NumericVector v = list_of_edit_distances[i];
+
     unsigned int least_dist = min(v);
+    unsigned int idx_dict = which_min(v);
+
+    double proximity_ratio = LCS_ratio(
+      Rcpp::as<std::string>(words[i]),
+      Rcpp::as<std::string>(dict_words[idx_dict])
+    );
 
     // filter your proximity scores on cutoff
-    if(least_dist > cutoff) {
+    if(least_dist > cutoff_levenstein | proximity_ratio < cutoff_LCS) {
 
       // 5207 maps to '0' in the dictionary, because NA's
       // aren't subsettable, so a neutral score is given.
       idx[i] = 5207;
 
     } else {
-      idx[i] = which_min(v);
+      idx[i] = idx_dict;
     }
   }
   return idx;

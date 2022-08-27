@@ -88,15 +88,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// idx_lookup_min
-Rcpp::IntegerVector idx_lookup_min(Rcpp::List list_of_edit_distances, unsigned int cutoff);
-RcppExport SEXP _dutchsent_idx_lookup_min(SEXP list_of_edit_distancesSEXP, SEXP cutoffSEXP) {
+// dict_idx_lookup
+Rcpp::IntegerVector dict_idx_lookup(Rcpp::List list_of_edit_distances, Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, unsigned int cutoff_levenstein, double cutoff_LCS);
+RcppExport SEXP _dutchsent_dict_idx_lookup(SEXP list_of_edit_distancesSEXP, SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_LCSSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type list_of_edit_distances(list_of_edit_distancesSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type cutoff(cutoffSEXP);
-    rcpp_result_gen = Rcpp::wrap(idx_lookup_min(list_of_edit_distances, cutoff));
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type cutoff_levenstein(cutoff_levensteinSEXP);
+    Rcpp::traits::input_parameter< double >::type cutoff_LCS(cutoff_LCSSEXP);
+    rcpp_result_gen = Rcpp::wrap(dict_idx_lookup(list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_LCS));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -202,48 +205,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// proximity_search_dict
-Rcpp::IntegerVector proximity_search_dict(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff);
-RcppExport SEXP _dutchsent_proximity_search_dict(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoffSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type cutoff(cutoffSEXP);
-    rcpp_result_gen = Rcpp::wrap(proximity_search_dict(words, dict_words, dict_scores, cutoff));
-    return rcpp_result_gen;
-END_RCPP
-}
-// proximity_search_score
-Rcpp::IntegerVector proximity_search_score(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff);
-RcppExport SEXP _dutchsent_proximity_search_score(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoffSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type cutoff(cutoffSEXP);
-    rcpp_result_gen = Rcpp::wrap(proximity_search_score(words, dict_words, dict_scores, cutoff));
-    return rcpp_result_gen;
-END_RCPP
-}
-// most_similar_word
-Rcpp::CharacterVector most_similar_word(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff);
-RcppExport SEXP _dutchsent_most_similar_word(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoffSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type cutoff(cutoffSEXP);
-    rcpp_result_gen = Rcpp::wrap(most_similar_word(words, dict_words, dict_scores, cutoff));
-    return rcpp_result_gen;
-END_RCPP
-}
 // remove_words
 CharacterVector remove_words(CharacterVector words, CharacterVector word_list);
 RcppExport SEXP _dutchsent_remove_words(SEXP wordsSEXP, SEXP word_listSEXP) {
@@ -290,7 +251,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_damerau_levenshtein_ratio", (DL_FUNC) &_dutchsent_damerau_levenshtein_ratio, 2},
     {"_dutchsent_most_similar_DL", (DL_FUNC) &_dutchsent_most_similar_DL, 2},
     {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
-    {"_dutchsent_idx_lookup_min", (DL_FUNC) &_dutchsent_idx_lookup_min, 2},
+    {"_dutchsent_dict_idx_lookup", (DL_FUNC) &_dutchsent_dict_idx_lookup, 5},
     {"_dutchsent_jaro_distance", (DL_FUNC) &_dutchsent_jaro_distance, 2},
     {"_dutchsent_most_similar_jaro", (DL_FUNC) &_dutchsent_most_similar_jaro, 2},
     {"_dutchsent_jaro_winkler_distance", (DL_FUNC) &_dutchsent_jaro_winkler_distance, 2},
@@ -300,9 +261,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_load_dict", (DL_FUNC) &_dutchsent_load_dict, 0},
     {"_dutchsent_load_negation_words", (DL_FUNC) &_dutchsent_load_negation_words, 0},
     {"_dutchsent_load_stopwords", (DL_FUNC) &_dutchsent_load_stopwords, 0},
-    {"_dutchsent_proximity_search_dict", (DL_FUNC) &_dutchsent_proximity_search_dict, 4},
-    {"_dutchsent_proximity_search_score", (DL_FUNC) &_dutchsent_proximity_search_score, 4},
-    {"_dutchsent_most_similar_word", (DL_FUNC) &_dutchsent_most_similar_word, 4},
     {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
     {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
     {"_dutchsent_str_contains", (DL_FUNC) &_dutchsent_str_contains, 2},

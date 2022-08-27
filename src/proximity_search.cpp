@@ -1,10 +1,12 @@
+/*
+
 #include <Rcpp.h>
 #include "levenshtein.h"
 #include "idx_lookup_min.h"
 
 //' @export
 // [[Rcpp::export]]
-Rcpp::IntegerVector proximity_search_dict(
+Rcpp::IntegerVector dict_index(
 
     Rcpp::CharacterVector words,
     Rcpp::CharacterVector dict_words,
@@ -18,9 +20,9 @@ Rcpp::IntegerVector proximity_search_dict(
 
   // Lookup for the values of the words in
   // the sentiment dictionary.
-  Rcpp::IntegerVector s = idx_lookup_min(edit_dist, cutoff);
+  Rcpp::IntegerVector idx = idx_lookup_min(edit_dist, cutoff);
 
-  return s;
+  return idx;
 }
 
 
@@ -44,11 +46,11 @@ Rcpp::IntegerVector proximity_search_score(
     unsigned int cutoff
 ){
 
-  Rcpp::IntegerVector s = proximity_search_dict(
+  Rcpp::IntegerVector idx = dict_index(
     words, dict_words, dict_scores, cutoff
   );
 
-  return dict_scores[s];
+  return dict_scores[idx];
 }
 
 
@@ -68,9 +70,11 @@ Rcpp::CharacterVector most_similar_word(
     unsigned int cutoff
 ){
 
-  Rcpp::IntegerVector s = proximity_search_dict(
+  Rcpp::IntegerVector idx = dict_index(
     words, dict_words, dict_scores, cutoff
   );
 
-  return dict_words[s];
+  return dict_words[idx];
 }
+
+ */

@@ -48,16 +48,14 @@ get_words_Cpp <- function(str) {
 #' @description Function is designed to find the min indices in a list of numeric vectors.
 #' The numeric vectors consist of edit distances, numeric values.
 #' @param list_of_edit_distances A list of numeric vectors.
-#' @param least_dist Integer. Levenshtein Distance cut-off.
+#' @param words CharacterVector. List of words.
+#' @param dict_words CharacterVector. Word dictionary.
+#' @param cutoff_levenstein Integer. Levenshtein Distance cutoff.
+#' @param cutoff_LCS Double. Least Common Substring ratio cutoff.
 #' @return IntegerVector
 #' @export
-#' @examples
-#' edit_dist <- list(c(5, 4, 7), c(5, 1, 4))
-#' idx_lookup_min(edit_dist, 2)
-#' # Returns:
-#' # c(NA, 2)
-idx_lookup_min <- function(list_of_edit_distances, cutoff) {
-    .Call('_dutchsent_idx_lookup_min', PACKAGE = 'dutchsent', list_of_edit_distances, cutoff)
+dict_idx_lookup <- function(list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_LCS) {
+    .Call('_dutchsent_dict_idx_lookup', PACKAGE = 'dutchsent', list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_LCS)
 }
 
 jaro_distance <- function(s1, s2) {
@@ -113,37 +111,6 @@ load_negation_words <- function() {
 
 load_stopwords <- function() {
     .Call('_dutchsent_load_stopwords', PACKAGE = 'dutchsent')
-}
-
-#' @export
-proximity_search_dict <- function(words, dict_words, dict_scores, cutoff) {
-    .Call('_dutchsent_proximity_search_dict', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff)
-}
-
-#' @title Find the sentiment score of a word in the sentiment dictionary.
-#' @param words CharacterVector. Vector of words.
-#' @param dict_words CharacterVector. A word dictionary.
-#' @param dict_scores IntegerVector. Scores for each word in the dictionary.
-#' @param cutoff Integer. The number of single-character edits required
-#' to change a word in the target word.
-#' @return IntegerVector. Sentiment scores for each word, 0 if no match was found.
-#' @examples
-#' words <- c("stomme", "goede")
-#' proximity_search_score(words, dict$word, dict$score, cutoff = 2)
-#' @export
-proximity_search_score <- function(words, dict_words, dict_scores, cutoff) {
-    .Call('_dutchsent_proximity_search_score', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff)
-}
-
-#' @title Find the most similar word in the dictionary.
-#' @param words CharacterVector. Vector of words.
-#' @param dict_words CharacterVector. A word dictionary.
-#' @param dict_scores IntegerVector. Scores for each word in the dictionary.
-#' @param cutoff Integer. The number of single-character edits required
-#' to change a word in the target word.
-#' @export
-most_similar_word <- function(words, dict_words, dict_scores, cutoff) {
-    .Call('_dutchsent_most_similar_word', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff)
 }
 
 #' @title Remove words from a vector of words.
