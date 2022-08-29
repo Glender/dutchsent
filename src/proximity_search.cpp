@@ -1,8 +1,6 @@
-/*
-
 #include <Rcpp.h>
 #include "levenshtein.h"
-#include "idx_lookup_min.h"
+#include "idx_lookup.h"
 
 //' @export
 // [[Rcpp::export]]
@@ -10,8 +8,9 @@ Rcpp::IntegerVector dict_index(
 
     Rcpp::CharacterVector words,
     Rcpp::CharacterVector dict_words,
-    Rcpp::IntegerVector dict_scores,
-    unsigned int cutoff
+    unsigned int cutoff_levenstein,
+    double cutoff_LCS
+
 ){
 
   // Find proximity scores for each words
@@ -20,7 +19,9 @@ Rcpp::IntegerVector dict_index(
 
   // Lookup for the values of the words in
   // the sentiment dictionary.
-  Rcpp::IntegerVector idx = idx_lookup_min(edit_dist, cutoff);
+  Rcpp::IntegerVector idx = dict_idx_lookup(
+    edit_dist, words, dict_words, cutoff_levenstein, cutoff_LCS
+  );
 
   return idx;
 }
@@ -35,19 +36,21 @@ Rcpp::IntegerVector dict_index(
 //' @return IntegerVector. Sentiment scores for each word, 0 if no match was found.
 //' @examples
 //' words <- c("stomme", "goede")
-//' proximity_search_score(words, dict$word, dict$score, cutoff = 2)
+//' algorithmic_search_dict(words, dict$word, dict$score, cutoff = 2)
 //' @export
 // [[Rcpp::export]]
-Rcpp::IntegerVector proximity_search_score(
+Rcpp::IntegerVector algorithmic_search_dict(
 
     Rcpp::CharacterVector words,
     Rcpp::CharacterVector dict_words,
     Rcpp::IntegerVector dict_scores,
-    unsigned int cutoff
+    unsigned int cutoff_levenstein,
+    double cutoff_LCS
+
 ){
 
   Rcpp::IntegerVector idx = dict_index(
-    words, dict_words, dict_scores, cutoff
+    words, dict_words, cutoff_levenstein, cutoff_LCS
   );
 
   return dict_scores[idx];
@@ -67,14 +70,15 @@ Rcpp::CharacterVector most_similar_word(
     Rcpp::CharacterVector words,
     Rcpp::CharacterVector dict_words,
     Rcpp::IntegerVector dict_scores,
-    unsigned int cutoff
+    unsigned int cutoff_levenstein,
+    double cutoff_LCS
+
 ){
 
   Rcpp::IntegerVector idx = dict_index(
-    words, dict_words, dict_scores, cutoff
+    words, dict_words, cutoff_levenstein, cutoff_LCS
   );
 
   return dict_words[idx];
 }
 
- */
