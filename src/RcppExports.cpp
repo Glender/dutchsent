@@ -77,13 +77,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_sentiment
+CharacterVector get_sentiment(Rcpp::CharacterVector text);
+RcppExport SEXP _dutchsent_get_sentiment(SEXP textSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type text(textSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_sentiment(text));
+    return rcpp_result_gen;
+END_RCPP
+}
 // get_words_Cpp
-Rcpp::CharacterVector get_words_Cpp(std::string str);
+Rcpp::CharacterVector get_words_Cpp(Rcpp::CharacterVector str);
 RcppExport SEXP _dutchsent_get_words_Cpp(SEXP strSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type str(strSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type str(strSEXP);
     rcpp_result_gen = Rcpp::wrap(get_words_Cpp(str));
     return rcpp_result_gen;
 END_RCPP
@@ -286,6 +297,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// to_lowercase
+Rcpp::CharacterVector to_lowercase(Rcpp::CharacterVector str);
+RcppExport SEXP _dutchsent_to_lowercase(SEXP strSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type str(strSEXP);
+    rcpp_result_gen = Rcpp::wrap(to_lowercase(str));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_LCSubStr", (DL_FUNC) &_dutchsent_LCSubStr, 2},
@@ -294,6 +316,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_damerau_levenshtein", (DL_FUNC) &_dutchsent_damerau_levenshtein, 2},
     {"_dutchsent_damerau_levenshtein_ratio", (DL_FUNC) &_dutchsent_damerau_levenshtein_ratio, 2},
     {"_dutchsent_most_similar_DL", (DL_FUNC) &_dutchsent_most_similar_DL, 2},
+    {"_dutchsent_get_sentiment", (DL_FUNC) &_dutchsent_get_sentiment, 1},
     {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
     {"_dutchsent_dict_idx_lookup", (DL_FUNC) &_dutchsent_dict_idx_lookup, 5},
     {"_dutchsent_jaro_distance", (DL_FUNC) &_dutchsent_jaro_distance, 2},
@@ -311,6 +334,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
     {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
     {"_dutchsent_str_contains", (DL_FUNC) &_dutchsent_str_contains, 2},
+    {"_dutchsent_to_lowercase", (DL_FUNC) &_dutchsent_to_lowercase, 1},
     {NULL, NULL, 0}
 };
 

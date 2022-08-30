@@ -35,6 +35,11 @@ most_similar_DL <- function(strings, targets) {
     .Call('_dutchsent_most_similar_DL', PACKAGE = 'dutchsent', strings, targets)
 }
 
+#' @export
+get_sentiment <- function(text) {
+    .Call('_dutchsent_get_sentiment', PACKAGE = 'dutchsent', text)
+}
+
 #' @title C++ wrapper around main fun in get_words.R
 #' @description Function extracts words from text.
 #' @param str Character. For example, a sentence like "Mijn naam is Gerard. Ik ben een goochelaar".
@@ -127,7 +132,7 @@ dict_index <- function(words, dict_words, cutoff_levenstein, cutoff_LCS) {
 #' @return IntegerVector. Sentiment scores for each word, 0 if no match was found.
 #' @examples
 #' words <- c("stomme", "goede")
-#' algorithmic_search_dict(words, dict$word, dict$score, cutoff = 2)
+#' algorithmic_search_dict(words, dict$word, dict$score, 2, .3)
 #' @export
 algorithmic_search_dict <- function(words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS) {
     .Call('_dutchsent_algorithmic_search_dict', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS)
@@ -178,5 +183,10 @@ search_dict <- function(w, words, scores) {
 #' @export
 str_contains <- function(words, word_list) {
     .Call('_dutchsent_str_contains', PACKAGE = 'dutchsent', words, word_list)
+}
+
+#' @export
+to_lowercase <- function(str) {
+    .Call('_dutchsent_to_lowercase', PACKAGE = 'dutchsent', str)
 }
 

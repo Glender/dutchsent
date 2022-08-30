@@ -4,7 +4,9 @@ using namespace Rcpp;
 
 // Code inspired by:
 // https://teuder.github.io/rcpp4everyone_en/280_environment.html#creating-environment-object
+
 // And:
+
 // https://teuder.github.io/rcpp4everyone_en/230_R_function.html
 
 //' @title C++ wrapper around main fun in get_words.R
@@ -13,14 +15,13 @@ using namespace Rcpp;
 //' @return Character Vector.
 //'
 // [[Rcpp::export]]
-Rcpp::CharacterVector get_words_Cpp(std::string str) {
+Rcpp::CharacterVector get_words_Cpp(Rcpp::CharacterVector str) {
 
-  // Obtaining namespace of our package
+  // Obtaining namespace of our package.
   Environment pkg = Environment::namespace_env("dutchsent");
 
-  // Picking up get_words() function from the package
+  // Picking up get_words() function from the package.
   Function f = pkg["get_words"];
 
-  // executing function
   return f(str);
 }

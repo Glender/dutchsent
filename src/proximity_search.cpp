@@ -36,7 +36,7 @@ Rcpp::IntegerVector dict_index(
 //' @return IntegerVector. Sentiment scores for each word, 0 if no match was found.
 //' @examples
 //' words <- c("stomme", "goede")
-//' algorithmic_search_dict(words, dict$word, dict$score, cutoff = 2)
+//' algorithmic_search_dict(words, dict$word, dict$score, 2, .3)
 //' @export
 // [[Rcpp::export]]
 Rcpp::IntegerVector algorithmic_search_dict(
