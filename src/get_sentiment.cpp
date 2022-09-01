@@ -15,7 +15,7 @@ const Rcpp::CharacterVector negation_words = load_negation_words();
 
 //' @export
 // [[Rcpp::export]]
-Rcpp::CharacterVector get_sentiment(
+Rcpp::IntegerVector get_sentiment(
 
     Rcpp::CharacterVector text
   ) {
@@ -27,7 +27,7 @@ Rcpp::CharacterVector get_sentiment(
   CharacterVector words = to_lowercase(get_words_Cpp(text));
 
 
-  return words;
+  return sentiment_dict["score"];
 }
 
 

@@ -78,7 +78,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_sentiment
-Rcpp::CharacterVector get_sentiment(Rcpp::CharacterVector text);
+Rcpp::IntegerVector get_sentiment(Rcpp::CharacterVector text);
 RcppExport SEXP _dutchsent_get_sentiment(SEXP textSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
