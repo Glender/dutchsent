@@ -10,6 +10,10 @@ using namespace Rcpp;
 //' remove <- c("zo", "die")
 //' remove_words(some_words, remove)
 // [[Rcpp::export]]
-CharacterVector remove_words(CharacterVector words, CharacterVector word_list) {
-  return Rcpp::setdiff(words, word_list);
+CharacterVector remove_words(CharacterVector words, CharacterVector word_list){
+
+  LogicalVector v = in(words, word_list);
+
+  return words[!v];
 }
+
