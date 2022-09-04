@@ -36,8 +36,8 @@ most_similar_DL <- function(strings, targets) {
 }
 
 #' @export
-get_sentiment <- function(text) {
-    .Call('_dutchsent_get_sentiment', PACKAGE = 'dutchsent', text)
+get_sentiment <- function(text, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio) {
+    .Call('_dutchsent_get_sentiment', PACKAGE = 'dutchsent', text, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio)
 }
 
 #' @title C++ wrapper around main fun in get_words.R
@@ -59,8 +59,8 @@ get_words_Cpp <- function(str) {
 #' @param cutoff_LCS Double. Least Common Substring ratio cutoff.
 #' @return IntegerVector
 #' @export
-dict_idx_lookup <- function(list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_LCS) {
-    .Call('_dutchsent_dict_idx_lookup', PACKAGE = 'dutchsent', list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_LCS)
+dict_idx_lookup <- function(list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_sim_ratio) {
+    .Call('_dutchsent_dict_idx_lookup', PACKAGE = 'dutchsent', list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_sim_ratio)
 }
 
 jaro_distance <- function(s1, s2) {
@@ -119,8 +119,8 @@ load_stopwords <- function() {
 }
 
 #' @export
-dict_index <- function(words, dict_words, cutoff_levenstein, cutoff_LCS) {
-    .Call('_dutchsent_dict_index', PACKAGE = 'dutchsent', words, dict_words, cutoff_levenstein, cutoff_LCS)
+dict_index <- function(words, dict_words, cutoff_levenstein, cutoff_sim_ratio) {
+    .Call('_dutchsent_dict_index', PACKAGE = 'dutchsent', words, dict_words, cutoff_levenstein, cutoff_sim_ratio)
 }
 
 #' @title Find the sentiment score of a word in the sentiment dictionary.
@@ -134,8 +134,8 @@ dict_index <- function(words, dict_words, cutoff_levenstein, cutoff_LCS) {
 #' words <- c("stomme", "goede")
 #' algorithmic_search_dict(words, dict$word, dict$score, 2, .3)
 #' @export
-algorithmic_search_dict <- function(words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS) {
-    .Call('_dutchsent_algorithmic_search_dict', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS)
+algorithmic_search_dict <- function(words, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio) {
+    .Call('_dutchsent_algorithmic_search_dict', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio)
 }
 
 #' @title Find the most similar word in the dictionary.
@@ -145,8 +145,8 @@ algorithmic_search_dict <- function(words, dict_words, dict_scores, cutoff_leven
 #' @param cutoff Integer. The number of single-character edits required
 #' to change a word in the target word.
 #' @export
-most_similar_word <- function(words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS) {
-    .Call('_dutchsent_most_similar_word', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS)
+most_similar_word <- function(words, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio) {
+    .Call('_dutchsent_most_similar_word', PACKAGE = 'dutchsent', words, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio)
 }
 
 #' @title Remove words from a vector of words.
@@ -183,6 +183,22 @@ search_dict <- function(w, words, scores) {
 #' @export
 str_contains <- function(words, word_list) {
     .Call('_dutchsent_str_contains', PACKAGE = 'dutchsent', words, word_list)
+}
+
+str_len <- function(x) {
+    .Call('_dutchsent_str_len', PACKAGE = 'dutchsent', x)
+}
+
+str_len_vectorized <- function(x) {
+    .Call('_dutchsent_str_len_vectorized', PACKAGE = 'dutchsent', x)
+}
+
+#' @title Count how many letters from a word occur in a target.
+#' @param word CharacterVector.
+#' @param target CharacterVector.
+#' @export
+str_match <- function(word, target) {
+    .Call('_dutchsent_str_match', PACKAGE = 'dutchsent', word, target)
 }
 
 #' @export

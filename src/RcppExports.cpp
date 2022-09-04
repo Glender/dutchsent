@@ -78,13 +78,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // get_sentiment
-Rcpp::IntegerVector get_sentiment(Rcpp::CharacterVector text);
-RcppExport SEXP _dutchsent_get_sentiment(SEXP textSEXP) {
+Rcpp::IntegerVector get_sentiment(Rcpp::CharacterVector text, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff_levenstein, double cutoff_sim_ratio);
+RcppExport SEXP _dutchsent_get_sentiment(SEXP textSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_sim_ratioSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type text(textSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_sentiment(text));
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type cutoff_levenstein(cutoff_levensteinSEXP);
+    Rcpp::traits::input_parameter< double >::type cutoff_sim_ratio(cutoff_sim_ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_sentiment(text, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -100,8 +104,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // dict_idx_lookup
-Rcpp::IntegerVector dict_idx_lookup(Rcpp::List list_of_edit_distances, Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, unsigned int cutoff_levenstein, double cutoff_LCS);
-RcppExport SEXP _dutchsent_dict_idx_lookup(SEXP list_of_edit_distancesSEXP, SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_LCSSEXP) {
+Rcpp::IntegerVector dict_idx_lookup(Rcpp::List list_of_edit_distances, Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, unsigned int cutoff_levenstein, double cutoff_sim_ratio);
+RcppExport SEXP _dutchsent_dict_idx_lookup(SEXP list_of_edit_distancesSEXP, SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_sim_ratioSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -109,8 +113,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type cutoff_levenstein(cutoff_levensteinSEXP);
-    Rcpp::traits::input_parameter< double >::type cutoff_LCS(cutoff_LCSSEXP);
-    rcpp_result_gen = Rcpp::wrap(dict_idx_lookup(list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_LCS));
+    Rcpp::traits::input_parameter< double >::type cutoff_sim_ratio(cutoff_sim_ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(dict_idx_lookup(list_of_edit_distances, words, dict_words, cutoff_levenstein, cutoff_sim_ratio));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -217,22 +221,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // dict_index
-Rcpp::IntegerVector dict_index(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, unsigned int cutoff_levenstein, double cutoff_LCS);
-RcppExport SEXP _dutchsent_dict_index(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_LCSSEXP) {
+Rcpp::IntegerVector dict_index(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, unsigned int cutoff_levenstein, double cutoff_sim_ratio);
+RcppExport SEXP _dutchsent_dict_index(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_sim_ratioSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type words(wordsSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type cutoff_levenstein(cutoff_levensteinSEXP);
-    Rcpp::traits::input_parameter< double >::type cutoff_LCS(cutoff_LCSSEXP);
-    rcpp_result_gen = Rcpp::wrap(dict_index(words, dict_words, cutoff_levenstein, cutoff_LCS));
+    Rcpp::traits::input_parameter< double >::type cutoff_sim_ratio(cutoff_sim_ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(dict_index(words, dict_words, cutoff_levenstein, cutoff_sim_ratio));
     return rcpp_result_gen;
 END_RCPP
 }
 // algorithmic_search_dict
-Rcpp::IntegerVector algorithmic_search_dict(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff_levenstein, double cutoff_LCS);
-RcppExport SEXP _dutchsent_algorithmic_search_dict(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_LCSSEXP) {
+Rcpp::IntegerVector algorithmic_search_dict(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff_levenstein, double cutoff_sim_ratio);
+RcppExport SEXP _dutchsent_algorithmic_search_dict(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_sim_ratioSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -240,14 +244,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type cutoff_levenstein(cutoff_levensteinSEXP);
-    Rcpp::traits::input_parameter< double >::type cutoff_LCS(cutoff_LCSSEXP);
-    rcpp_result_gen = Rcpp::wrap(algorithmic_search_dict(words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS));
+    Rcpp::traits::input_parameter< double >::type cutoff_sim_ratio(cutoff_sim_ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(algorithmic_search_dict(words, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio));
     return rcpp_result_gen;
 END_RCPP
 }
 // most_similar_word
-Rcpp::CharacterVector most_similar_word(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff_levenstein, double cutoff_LCS);
-RcppExport SEXP _dutchsent_most_similar_word(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_LCSSEXP) {
+Rcpp::CharacterVector most_similar_word(Rcpp::CharacterVector words, Rcpp::CharacterVector dict_words, Rcpp::IntegerVector dict_scores, unsigned int cutoff_levenstein, double cutoff_sim_ratio);
+RcppExport SEXP _dutchsent_most_similar_word(SEXP wordsSEXP, SEXP dict_wordsSEXP, SEXP dict_scoresSEXP, SEXP cutoff_levensteinSEXP, SEXP cutoff_sim_ratioSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -255,8 +259,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type dict_words(dict_wordsSEXP);
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dict_scores(dict_scoresSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type cutoff_levenstein(cutoff_levensteinSEXP);
-    Rcpp::traits::input_parameter< double >::type cutoff_LCS(cutoff_LCSSEXP);
-    rcpp_result_gen = Rcpp::wrap(most_similar_word(words, dict_words, dict_scores, cutoff_levenstein, cutoff_LCS));
+    Rcpp::traits::input_parameter< double >::type cutoff_sim_ratio(cutoff_sim_ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(most_similar_word(words, dict_words, dict_scores, cutoff_levenstein, cutoff_sim_ratio));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -297,6 +301,40 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// str_len
+int str_len(String x);
+RcppExport SEXP _dutchsent_str_len(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< String >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(str_len(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// str_len_vectorized
+IntegerVector str_len_vectorized(CharacterVector x);
+RcppExport SEXP _dutchsent_str_len_vectorized(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(str_len_vectorized(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// str_match
+double str_match(std::string word, std::string target);
+RcppExport SEXP _dutchsent_str_match(SEXP wordSEXP, SEXP targetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type word(wordSEXP);
+    Rcpp::traits::input_parameter< std::string >::type target(targetSEXP);
+    rcpp_result_gen = Rcpp::wrap(str_match(word, target));
+    return rcpp_result_gen;
+END_RCPP
+}
 // to_lowercase
 Rcpp::CharacterVector to_lowercase(Rcpp::CharacterVector str);
 RcppExport SEXP _dutchsent_to_lowercase(SEXP strSEXP) {
@@ -316,7 +354,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_damerau_levenshtein", (DL_FUNC) &_dutchsent_damerau_levenshtein, 2},
     {"_dutchsent_damerau_levenshtein_ratio", (DL_FUNC) &_dutchsent_damerau_levenshtein_ratio, 2},
     {"_dutchsent_most_similar_DL", (DL_FUNC) &_dutchsent_most_similar_DL, 2},
-    {"_dutchsent_get_sentiment", (DL_FUNC) &_dutchsent_get_sentiment, 1},
+    {"_dutchsent_get_sentiment", (DL_FUNC) &_dutchsent_get_sentiment, 5},
     {"_dutchsent_get_words_Cpp", (DL_FUNC) &_dutchsent_get_words_Cpp, 1},
     {"_dutchsent_dict_idx_lookup", (DL_FUNC) &_dutchsent_dict_idx_lookup, 5},
     {"_dutchsent_jaro_distance", (DL_FUNC) &_dutchsent_jaro_distance, 2},
@@ -334,6 +372,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dutchsent_remove_words", (DL_FUNC) &_dutchsent_remove_words, 2},
     {"_dutchsent_search_dict", (DL_FUNC) &_dutchsent_search_dict, 3},
     {"_dutchsent_str_contains", (DL_FUNC) &_dutchsent_str_contains, 2},
+    {"_dutchsent_str_len", (DL_FUNC) &_dutchsent_str_len, 1},
+    {"_dutchsent_str_len_vectorized", (DL_FUNC) &_dutchsent_str_len_vectorized, 1},
+    {"_dutchsent_str_match", (DL_FUNC) &_dutchsent_str_match, 2},
     {"_dutchsent_to_lowercase", (DL_FUNC) &_dutchsent_to_lowercase, 1},
     {NULL, NULL, 0}
 };

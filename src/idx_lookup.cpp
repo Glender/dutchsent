@@ -1,5 +1,5 @@
 #include <Rcpp.h>
-#include "LCS_ratio.h"
+#include "str_match.h"
 
 using namespace Rcpp;
 
@@ -23,7 +23,7 @@ Rcpp::IntegerVector dict_idx_lookup(
     Rcpp::CharacterVector words,
     Rcpp::CharacterVector dict_words,
     unsigned int cutoff_levenstein,
-    double cutoff_LCS
+    double cutoff_sim_ratio
 
 ){
 
@@ -39,13 +39,19 @@ Rcpp::IntegerVector dict_idx_lookup(
     unsigned int least_dist = min(v);
     unsigned int idx_dict = which_min(v);
 
-    double proximity_ratio = LCS_ratio(
+    /*
+     * Calculate similarity ratio. That is,
+     * how many letters from the word match with
+     * the target, by starting counting from the
+     * first to the last letter.
+    */
+    double proximity_ratio = str_match(
       Rcpp::as<std::string>(words[i]),
       Rcpp::as<std::string>(dict_words[idx_dict])
     );
 
     // filter your proximity scores on cutoff
-    if(least_dist > cutoff_levenstein | proximity_ratio < cutoff_LCS) {
+    if(least_dist > cutoff_levenstein | proximity_ratio < cutoff_sim_ratio) {
 
       // 5207 maps to '0' in the dictionary, because NA's
       // aren't subsettable, so a neutral score is given.

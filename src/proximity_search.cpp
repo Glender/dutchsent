@@ -9,7 +9,7 @@ Rcpp::IntegerVector dict_index(
     Rcpp::CharacterVector words,
     Rcpp::CharacterVector dict_words,
     unsigned int cutoff_levenstein,
-    double cutoff_LCS
+    double cutoff_sim_ratio
 
 ){
 
@@ -20,7 +20,7 @@ Rcpp::IntegerVector dict_index(
   // Lookup for the values of the words in
   // the sentiment dictionary.
   Rcpp::IntegerVector idx = dict_idx_lookup(
-    edit_dist, words, dict_words, cutoff_levenstein, cutoff_LCS
+    edit_dist, words, dict_words, cutoff_levenstein, cutoff_sim_ratio
   );
 
   return idx;
@@ -45,12 +45,12 @@ Rcpp::IntegerVector algorithmic_search_dict(
     Rcpp::CharacterVector dict_words,
     Rcpp::IntegerVector dict_scores,
     unsigned int cutoff_levenstein,
-    double cutoff_LCS
+    double cutoff_sim_ratio
 
 ){
 
   Rcpp::IntegerVector idx = dict_index(
-    words, dict_words, cutoff_levenstein, cutoff_LCS
+    words, dict_words, cutoff_levenstein, cutoff_sim_ratio
   );
 
   return dict_scores[idx];
@@ -71,12 +71,12 @@ Rcpp::CharacterVector most_similar_word(
     Rcpp::CharacterVector dict_words,
     Rcpp::IntegerVector dict_scores,
     unsigned int cutoff_levenstein,
-    double cutoff_LCS
+    double cutoff_sim_ratio
 
 ){
 
   Rcpp::IntegerVector idx = dict_index(
-    words, dict_words, cutoff_levenstein, cutoff_LCS
+    words, dict_words, cutoff_levenstein, cutoff_sim_ratio
   );
 
   return dict_words[idx];
